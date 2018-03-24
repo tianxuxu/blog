@@ -1,0 +1,79 @@
+// buildscript 代码块中脚本优先执行
+buildscript {
+	// ext 用于定义动态属性
+	ext {
+		springBootVersion = '1.5.2.RELEASE'
+	}
+	//自定义版本
+	ext['thymeleaf.version']='3.0.3.RELEASE'
+	ext['thymeleaf-layout-dialect.version']='2.2.0'
+	ext['hibernate.version']='5.2.8.Final'
+	
+	repositories {
+		//mavenCentral()
+		// 使用了 Maven 的中央仓库（你也可以指定其他仓库）
+		maven{
+			url 'http://maven.aliyun.com/nexus/content/groups/public'
+		}
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+jar{
+	baseName='blog'
+	version='1.0.0'
+}
+
+group = 'com.xaut'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	//mavenCentral()
+	maven{
+			url 'http://maven.aliyun.com/nexus/content/groups/public'
+		}
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	//compile('org.springframework.boot:spring-boot-starter-elasticsearch')
+	//compile('net.java.dev.jna:jna:4.3.0')
+		// 添加  Spring Data Elasticsearch 的依赖
+	
+
+	// 添加  JNA 的依赖
+	compile('net.java.dev.jna:jna:4.3.0')
+	compile('mysql:mysql-connector-java:6.0.5')
+	// 添加 Apache Commons Lang 依赖
+	compile('org.apache.commons:commons-lang3:3.5')
+
+	// 添加  Spring Security 依赖
+	compile('org.springframework.boot:spring-boot-starter-security')
+
+	// 添加   Thymeleaf Spring Security 依赖
+	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE')
+
+	// 添加 Markdown parser 依赖
+	compile('es.nitaur.markdown:txtmark:0.16')
+	
+	// 添加  Spring Data Elasticsearch 的依赖
+	compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+	
+    
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	// 添加 H2 的依赖
+	runtime('com.h2database:h2:1.4.193')
+	//添加Thymleaf的依赖
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+}
